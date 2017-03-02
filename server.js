@@ -1,7 +1,6 @@
 // Dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
-var logger = require("morgan");
 var mongoose = require("mongoose");
 // Requiring our Note and Article models
 var Note = require("./models/Note.js");
@@ -9,21 +8,22 @@ var Article = require("./models/Article.js");
 // Our scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
-
+// Initialize Express
+var app = express();
 // Require handlebars
 var exphbs = require('express-handlebars');
-// Configure app with handlebars
-module.exports = function(app) {
-  var hbs = exphbs.create({
-    defaultLayout: 'app',
-    helpers: {
-      section: function(name, options) {
-        if (!this._sections) this._sections = {}
-        this._sections[name] = options.fn(this)
-        return null
+  // Configure app with handlebars
+  module.exports = function(app) {
+    var hbs = exphbs.create({
+      defaultLayout: 'app',
+      helpers: {
+        section: function(name, options) {
+          if (!this._sections) this._sections = {}
+          this._sections[name] = options.fn(this)
+          return null
+        }
       }
-    }
-  })
+    })
 
   app.engine('handlebars', hbs.engine)
   app.set('view engine', 'handlebars')
@@ -32,12 +32,8 @@ module.exports = function(app) {
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
+// Use body parser with our app
 
-// Initialize Express
-var app = express();
-
-// Use morgan and body parser with our app
-app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
@@ -154,6 +150,9 @@ app.post("/articles/:id", function(req, res) {
   });
 });
 
+
+
+app.use('/', home)
 
 // Listen on port 3000
 app.listen(3000, function() {

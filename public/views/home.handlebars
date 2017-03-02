@@ -1,8 +1,23 @@
 {{#section 'head'}}
     <link rel="stylesheet" href="../style.css">
 {{/section}}
+
 <h1>Scraping the Onion</h1>
-<div id="wrapper">
+<form action="/submit" method="post">
+    <h1>Hi User!</h1>
+    <h2>Enter a Note!</h2>
+      <input type="text" name="title" placeholder="Title" id="articles">
+      <textarea type="text" name="body">Write Note Here</textarea>
+
+      <input type="submit">
+      <a href="/scrape">Scrape!</a>
+      <a href="/articles">See your articles!</a>
+      <a href="/images">See your profile, populated with notes!</a>
+      <a href="/notes">Leave a comment!</a>
+    </form>
+
+
+<!-- <div id="wrapper">
    
   <div id="articles"></div>
   <pre>{{}}</pre>
@@ -10,4 +25,4 @@
   <pre>{{}}</pre>
   <div id="images"></div>
   <pre>{{}}</pre>
-</div>
+</div> -->
